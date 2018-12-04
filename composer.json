@@ -1,0 +1,10 @@
+{
+    "name": "balise/bridge",
+    "authors": [
+        {
+            "name": "Simon Mongeau",
+            "email": "simon@balise.ca"
+        }
+    ],
+    "require": {}
+}
