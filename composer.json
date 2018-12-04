@@ -9,6 +9,10 @@
     "require": {
         "illuminate/database": "^5.7",
         "illuminate/view" : "^5.7",
+<<<<<<< HEAD
         "windwalker/renderer": "~3.0"
+=======
+        "windwalker/renderer": "~3.0",
+>>>>>>> 4b251fd3a3e36912130dc90cd3a598a8ff4ef8fb
     }
 }
