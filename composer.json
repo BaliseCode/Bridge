@@ -6,5 +6,9 @@
             "email": "simon@balise.ca"
         }
     ],
-    "require": {}
+    "require": {
+        "illuminate/database": "^5.7",
+        "illuminate/view" : "^5.7",
+        "windwalker/renderer": "~3.0"
+    }
 }
