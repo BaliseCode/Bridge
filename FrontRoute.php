@@ -2,12 +2,12 @@
 // Setup FrontRoute
 namespace Balise\Bridge;
 
-class FrontRoute extends WPRoute {
+class FrontRoute extends Route {
     public static $routes = array();
     static function start() {
         add_action('init', 'flush_rewrite_rules' );
-        add_action('init', array('WPFrontRoute', 'onInit'));
-        add_action('parse_query', array('WPFrontRoute', 'bypassQuery'));
+        add_action('init', array('FrontRoute', 'onInit'));
+        add_action('parse_query', array('FrontRoute', 'bypassQuery'));
     }
     static function onInit() {
 
@@ -66,3 +66,5 @@ class FrontRoute extends WPRoute {
         }
     }
 }
+
+FrontRoute::start();

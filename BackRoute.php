@@ -2,13 +2,12 @@
 // Setup BackRoute
 namespace Balise\Bridge;
 
-class BackRoute extends WPRoute {
-
+class BackRoute extends Route {
     public static $routes = array();
     static function start() {
         add_action('init', 'flush_rewrite_rules' );
-        add_action('init', array('WPBackRoute', 'onInit'));
-        add_action('parse_query', array('WPBackRoute', 'bypassQuery'));
+        add_action('init', array('\Balise\Bridge\BackRoute', 'onInit'));
+        add_action('parse_query', array('\Balise\Bridge\BackRoute', 'bypassQuery'));
     }
     static function onInit() {
         global $wp_query;
@@ -44,3 +43,5 @@ class BackRoute extends WPRoute {
         }
     }
 }
+
+BackRoute::start();

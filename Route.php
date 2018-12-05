@@ -27,7 +27,7 @@ abstract class Route {
         // If the callable function is still not callable, return empty function
         if (!is_callable($callable)) {
             $callable = function() {
-                return ''; 
+                return '';
             };
         }
         return $callable;
@@ -67,6 +67,3 @@ abstract class Route {
         return $_SERVER['REQUEST_URI'];
     }
 }
-
-FrontRoute::start();
-BackRoute::start();
