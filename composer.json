@@ -9,6 +9,11 @@
             "email": "simon@balise.ca"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "Balise\\Bridge\\": ""
+        }
+    },
     "require": {
         "illuminate/database": "^5.7",
         "illuminate/view" : "^5.7",
