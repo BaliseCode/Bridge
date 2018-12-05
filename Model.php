@@ -1,6 +1,7 @@
 <?php
-// SetUp Models
+// Setup Models
 namespace Balise\Bridge;
+
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 class Model extends Illuminate\Database\Eloquent\Model {
