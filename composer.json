@@ -1,11 +1,14 @@
 {
     "name": "balise/bridge",
+    "description": "A toolset to use php framework's concepts to plugins (and themes)",
+    "license": "MIT",
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "Simon Mongeau",
             "email": "simon@balise.ca"
         }
-    ],   
+    ],
     "require": {
         "illuminate/database": "^5.7",
         "illuminate/view" : "^5.7",
