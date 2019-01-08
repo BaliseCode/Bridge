@@ -20,8 +20,8 @@ class BackRoute extends Route {
         }
     }
     static function addMenu($name, $route, $permission = 'read', $icon='dashicons-yes') {
-    	add_action( 'admin_menu', function () {
-	    	add_menu_page('Membres','Membres','read', 'membres','',$icon);
+    	add_action( 'admin_menu', function () use ($icon,$name,$permission,$route) {
+	    	add_menu_page($name,$name,$permission, $route,'',$icon);
     	});
     }
     static function bypassQuery() {
