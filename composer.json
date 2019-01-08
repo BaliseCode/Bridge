@@ -12,7 +12,8 @@
     "autoload": {
         "psr-4": {
             "Balise\\Bridge\\": ""
-        }
+        },
+        "files": ["view.php"]
     },
     "require": {
         "illuminate/database": "^5.7",
