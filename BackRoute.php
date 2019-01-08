@@ -19,6 +19,11 @@ class BackRoute extends Route {
             add_rewrite_rule('^'.$wpadmin.$resolver.'$', 'index.php?backendroute=1', 'top');
         }
     }
+    static function addMenu($name, $route, $permission = 'read', $icon='dashicons-yes') {
+    	add_action( 'admin_menu', function () {
+	    	add_menu_page('Membres','Membres','read', 'membres','',$icon);
+    	});
+    }
     static function bypassQuery() {
         global $_wp_submenu_nopriv, $wp_db_version, $menu;
         if (get_query_var("backendroute", false)) {
