@@ -44,7 +44,6 @@ class FrontRoute extends Route {
         \add_filter('balise-anchor-getData', function () {
             if (get_query_var("frontendroute", false) === 1) {
                 global $wp_query, $post;
-                $post = new \stdClass();
                 $post->ID = 1;
                 $post->post_category = array();
                 $post->post_content = '';
