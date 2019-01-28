@@ -42,7 +42,7 @@ class FrontRoute extends Route {
 
         // This is added to work with the AnchorFramework and boilerplate
         \add_filter('balise-anchor-getData', function () {
-            if (get_query_var("frontendroute", false) === 1) {
+            if (get_query_var("frontendroute", false)) {
                 global $wp_query, $post;
                 $post->ID = 1;
                 $post->post_category = array();
