@@ -14,7 +14,7 @@ abstract class Route {
     public static function convertToCallable($callable) {
         if (!is_callable($callable)) {
             /* If the format Class@method is used */
-            /* convert it to callable */
+            /* convert it to callable */ 
             if (is_string($callable)) {
                 $parts = explode('@',$callable);
                 if (class_exists($parts[0])) {
