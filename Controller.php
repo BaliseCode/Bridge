@@ -1,4 +1,3 @@
-
 <?php
 // SetUp Controller
 namespace Balise\Bridge;
