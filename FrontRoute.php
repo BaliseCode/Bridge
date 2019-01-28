@@ -5,9 +5,8 @@ namespace Balise\Bridge;
 class FrontRoute extends Route {
     public static $routes = array();
     static function start() {
-        add_action('init', 'flush_rewrite_rules' );
-        add_action('init', array('FrontRoute', 'onInit'));
-        add_action('parse_query', array('FrontRoute', 'bypassQuery'));
+        add_action('init', array('Balise\Bridge\FrontRoute', 'onInit'));
+        add_action('parse_query', array('Balise\Bridge\FrontRoute', 'bypassQuery'));
     }
     static function onInit() {
 
