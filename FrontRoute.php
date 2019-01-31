@@ -2,9 +2,11 @@
 // Setup FrontRoute
 namespace Balise\Bridge;
 
-class FrontRoute extends Route {
+class FrontRoute extends Route
+{
     public static $routes = array();
-    public static function start() {
+    public static function start()
+    {
         add_action('init', array('Balise\Bridge\FrontRoute', 'onInit'));
 
         add_filter('theme_templates', array('Balise\AnchorFramework\Anchor', 'loadThemeTemplates'), 10, 4);
@@ -14,21 +16,58 @@ class FrontRoute extends Route {
         }
         add_action('parse_query', array('Balise\Bridge\FrontRoute', 'bypassQuery'));
 
-
-       
-
-        $types = array('index', '404', 'archive', 'author', 'category', 'tag', 'taxonomy', 'date','embed', 'home', 'frontpage', 'page', 'paged', 'search', 'single', 'singular', 'attachment');
+        $types = array('index', '404', 'archive', 'author', 'category', 'tag', 'taxonomy', 'date', 'embed', 'home', 'frontpage', 'page', 'paged', 'search', 'single', 'singular', 'attachment');
         foreach ($types as $type) {
-            add_filter( "{$type}_template_hierarchy", array('Balise\Bridge\FrontRoute','loadThemeTemplates'),1,4);
+            add_filter("{$type}_template_hierarchy", array('Balise\Bridge\FrontRoute', 'loadThemeTemplates'), 1, 4);
         }
 
-
     }
-    public static function loadThemeTemplates($post_templates) {
-        $resolved = self::routesResolver(self::$routes);  
-        array_unshift($post_templates,$resolved[3].".php");
+    public static function loadThemeTemplates($post_templates)
+    {
+        $resolved = self::routesResolver(self::$routes);
+        array_unshift($post_templates, $resolved[3] . ".php");
         return $post_templates;
     }
+
+    public static function routesResolver($routes, $prefix = "")
+    {
+        $selected = null;
+        foreach ($routes as $route) {
+            if ($_SERVER['REQUEST_METHOD'] === $route[0]) {
+
+                // Store the keys used
+                preg_match_all('/{(\w+)}/i', $route[1], $keys);
+
+                // Make the attibutes value as wildcard
+                $resolver = preg_replace('/{\w+}/i', '([^\/]+)', $route[1]);
+
+                // If the route match
+
+                $request = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+                $remove = substr(get_bloginfo('url'), strpos(get_bloginfo('url'), '://') + 3);
+
+                if (preg_match('#^/' . $prefix . $resolver . '/?$#i', str_replace($remove, "", $request), $data)) {
+                    $selected = $route;
+
+                    // Make sure the attribute 2 is a callback
+                    $selected[2] = self::convertToCallable($selected[2]);
+
+                    // Match the value to the keys and add it to the selected route
+                    $values = array();
+                    foreach ($keys[1] as $key => $id) {
+                        $values[$id] = $data[$key + 1];
+                    }
+                    $selected[] = $values;
+
+                    // Return selected route with data
+                    return $selected;
+                    break;
+                }
+            }
+        }
+        return $_SERVER['REQUEST_URI'];
+    }
+
     public static function onInit()
     {
 
@@ -61,7 +100,7 @@ class FrontRoute extends Route {
 
                 return new \Balise\AnchorFramework\PostWrapper($post, true);
             }
- 
+
         });
     }
     public static function bypassQuery()
@@ -93,13 +132,13 @@ class FrontRoute extends Route {
             $wp_query->is_404 = false;
             $wp_query->is_posts_page = 0;
             $wp_query->is_home = 0;
-            $wp_query->page = 0; 
+            $wp_query->page = 0;
             $wp_query->is_post = false;
             $wp_query->is_page = true;
             $wp_query->page = false;
 
             // Resolve the route
-            $resolved = self::routesResolver(self::$routes);  
+            $resolved = self::routesResolver(self::$routes);
 
             // Call the callback
             $post->post_content = call_user_func_array($resolved[2], $resolved[4]);
