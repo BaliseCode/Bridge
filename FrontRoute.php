@@ -25,7 +25,7 @@ class FrontRoute extends Route
     public static function loadThemeTemplates($post_templates)
     {
         $resolved = self::routesResolver(self::$routes);
-        array_unshift($post_templates, $resolved[3] . ".php");
+        array_unshift($post_templates, isset($resolved[3]) ? $resolved[3] : 'index' . ".php");
         return $post_templates;
     }
 
